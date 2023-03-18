@@ -6,7 +6,6 @@ import { useAccount, useContract, useProvider } from "wagmi";
 import Hydromotion from "../ABIs/Hydromotion.json";
 import { fetchBalance, getAccount } from "@wagmi/core";
 import ETHbuy from "../MintPop/ETHbuy";
-import FiatBuy from "../MintPop/FiatBuy";
 
 const presaleAddress = process.env.REACT_APP_PRESALE_ADDRESS;
 const hydromotionAddress = process.env.REACT_APP_HYDROMOTION_ADDRESS;
@@ -110,10 +109,7 @@ function Right() {
     ETHpop ? setETHpop(false) : setETHpop(true);
   };
 
-  const [FiatPop, setFiatPop] = useState(false);
-  const fiatPopHandel = () => {
-    FiatPop ? setFiatPop(false) : setFiatPop(true);
-  };
+  
   // --------------------------------------------------------------- //
 
   return (
@@ -188,24 +184,11 @@ function Right() {
           
             </>
         )}
-        <button
-          onClick={() => fiatPopHandel()}
-          className="border-2 border-lime-700 hover:border-lime-800 p-3 px-5 rounded-full text-lime-700 hover:text-lime-800 font-bold"
-        >
-          Buy Tokens with EUR
-        </button>
 
         
       </div>
       {ETHpop ? <ETHbuy cancel={() => ethPopHandel()} /> : null}
-      {FiatPop ? (
-        <FiatBuy
-          cancel={() => {
-            fiatPopHandel();
-          }}
-          currentPrice={currentTokenPrice}
-        />
-      ) : null}
+      
     </div>
   );
 }
