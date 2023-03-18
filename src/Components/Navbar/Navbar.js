@@ -32,8 +32,8 @@ function Navbar() {
                 y2="299.046"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop stop-color="#215215" />
-                <stop offset="1" stop-color="#5F923E" />
+                <stop stopColor="#215215" />
+                <stop offset="1" stopColor="#5F923E" />
               </linearGradient>
               <linearGradient
                 id="paint1_linear_4_3"
@@ -43,8 +43,8 @@ function Navbar() {
                 y2="364.298"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop stop-color="#5E913D" />
-                <stop offset="1" stop-color="#5F923E" />
+                <stop stopColor="#5E913D" />
+                <stop offset="1" stopColor="#5F923E" />
               </linearGradient>
             </defs>
           </svg>
