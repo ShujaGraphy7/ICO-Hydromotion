@@ -1,0 +1,23 @@
+.main-bg{
+    background-color:#99f1ff;
+background-image:
+radial-gradient(at 98% 88%, hsla(188,100%,80%,1) 0px, transparent 50%),
+radial-gradient(at 65% 31%, hsla(195,92%,73%,1) 0px, transparent 50%),
+radial-gradient(at 74% 21%, hsla(50,68%,74%,1) 0px, transparent 50%),
+radial-gradient(at 18% 10%, hsla(187,73%,78%,1) 0px, transparent 50%),
+radial-gradient(at 73% 21%, hsla(62,80%,63%,1) 0px, transparent 50%),
+radial-gradient(at 87% 51%, hsla(334,86%,65%,1) 0px, transparent 50%),
+radial-gradient(at 65% 57%, hsla(34,64%,68%,1) 0px, transparent 50%);
+}
+
+.QnA_bg{
+    background-color:#99cfff;
+background-image:
+radial-gradient(at 99% 47%, hsla(195,72%,62%,1) 0px, transparent 50%),
+radial-gradient(at 52% 44%, hsla(125,85%,75%,1) 0px, transparent 50%),
+radial-gradient(at 74% 75%, hsla(193,73%,73%,1) 0px, transparent 50%),
+radial-gradient(at 40% 45%, hsla(343,81%,70%,1) 0px, transparent 50%),
+radial-gradient(at 68% 55%, hsla(29,67%,60%,1) 0px, transparent 50%),
+radial-gradient(at 66% 50%, hsla(193,75%,76%,1) 0px, transparent 50%),
+radial-gradient(at 71% 65%, hsla(132,96%,66%,1) 0px, transparent 50%);
+}
