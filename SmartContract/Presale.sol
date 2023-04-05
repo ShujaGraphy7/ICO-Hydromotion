@@ -6,11 +6,11 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 interface erc20 {
     function mint(address to, uint256 amount) external;
-    function __transfer(address to, uint256 amount)
+    function presaleTransfer(address to, uint256 amount)
         external
         returns (bool);
 
-}
+ }
 
 contract Presale {
     uint256 public immutable minBuy = 10 * 10**2;
@@ -19,52 +19,43 @@ contract Presale {
 
     int256 private eur_to_usdPrice;
 
-    address private erc20Address;
+    address public erc20Address;
     address private OwnerIs;
-
-    mapping(address => timestampInfo[]) storeTimeInfo;
-    mapping(address => uint256) withdrawAble;
 
     constructor() {
         OwnerIs = msg.sender;
-    }
-
-    struct timestampInfo {
-        uint256 tokens;
-        uint256 timestamp;
     }
 
     function CurrentPrice() public view returns (uint256) {
         getEURtoUSDPrice();
 
         if (totalBought <= 10000000000 * 10**2) {
-            return ((getEURtoUSDPrice()) / (10000)) * (10**7);
-        } else if (totalBought <= 20000000000 * 10**2) {
-            return ((getEURtoUSDPrice()) / (1000)) * (10**7);
-        } else if (totalBought <= 30000000000 * 10**2) {
             return ((getEURtoUSDPrice()) / (100)) * (10**7);
-        } else if (totalBought <= 40000000000 * 10**2) {
+        } else if (totalBought <= 20000000000 * 10**2) {
             return ((getEURtoUSDPrice()) / (10)) * (10**7);
-        } else if (totalBought <= 50000000000 * 10**2){
+        } else if (totalBought <= 30000000000 * 10**2) {
             return ((getEURtoUSDPrice()) / (1)) * (10**7);
+        } else if (totalBought <= 40000000000 * 10**2) {
+            return ((getEURtoUSDPrice()) * (10)) * (10**7);
         }
         else{
             revert ("Already Max Minted, Now Only Owner Can Mint");
         }
+
     }
 
     function getEURtoUSDPrice() public view returns (uint256) {
         AggregatorV3Interface priceFeed;
 
         priceFeed = AggregatorV3Interface(
-            0x7d7356bF6Ee5CDeC22B216581E48eCC700D0497A
+            0xb49f677943BC038e9857d61E7d053CaA2C1734C1
         );
         (
-            ,
-            /*uint80 roundID*/
-            int256 price, /*uint startedAt*/ /*uint timeStamp*/ /*uint80 answeredInRound*/
-            ,
-            ,
+            /*uint80 roundID*/ ,
+            int256 price, 
+            /*uint startedAt*/ ,
+            /*uint timeStamp*/ ,
+            /*uint80 answeredInRound*/
 
         ) = priceFeed.latestRoundData();
         return uint256(price);
@@ -78,9 +69,6 @@ contract Presale {
         require(msg.value >= (CurrentPrice() * (amount/10**2)), "Low Value Pass");
         IERC20(erc20Address).transfer(caller, (amount));
         
-
-        storeTimeInfo[caller].push(timestampInfo((amount), block.timestamp));
-
         totalBought = totalBought + (amount);
     }
 
@@ -90,8 +78,6 @@ contract Presale {
         require(amount >= minBuy, "Low Amount Pass");
 
         IERC20(erc20Address).transfer(account, (amount));
-
-        storeTimeInfo[account].push(timestampInfo((amount), block.timestamp));
 
         totalBought = totalBought + (amount);
     }
@@ -104,23 +90,7 @@ contract Presale {
             "Not Enough tokens abailable"
         );
 
-        timestampInfo[] storage temp = storeTimeInfo[caller];
-
-        for (uint256 i = 0; i < temp.length; i++) {
-            if (temp[i].timestamp + 1 minutes <= block.timestamp) {
-                withdrawAble[caller] += temp[i].tokens;
-
-                temp[i] = temp[temp.length - 1];
-                temp.pop();
-            }
-        }
-
-        require(
-            withdrawAble[caller] >= amount,
-            "WithrawAble amount is not enough"
-        );
-
-        erc20(erc20Address).__transfer(account, amount);
+        erc20(erc20Address).presaleTransfer(account, amount);
 
         return false;
     }
@@ -141,7 +111,6 @@ contract Presale {
         require(msg.sender == OwnerIs, "can be only called by Owner");
         erc20(erc20Address).mint(to, amount);
 
-        storeTimeInfo[to].push(timestampInfo(amount, block.timestamp));
         totalBought = totalBought + amount;
     }
 
@@ -154,7 +123,4 @@ contract Presale {
         erc20Address = tokenAddress;
     }
 
-    function checkUserBuyList() public view returns (timestampInfo[] memory) {
-        return storeTimeInfo[msg.sender];
-    }
 }
