@@ -9,7 +9,7 @@ function Services() {
     <div className="grid my-5">
       <div className="my-auto ">
         <div>
-          <p className="py-10 text-center text-5xl font-bold text-sky-500 uppercase">
+          <p className="py-10 text-center text-3xl md:text-5xl font-bold text-sky-500 uppercase">
             <span className="text-black">HYDROMOTION</span>COIN
           </p>
           <div className="mx-40 my-10">

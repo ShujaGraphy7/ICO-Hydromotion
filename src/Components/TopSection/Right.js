@@ -6,7 +6,7 @@ import { useAccount, useContract, useProvider } from "wagmi";
 import Hydromotion from "../ABIs/Hydromotion.json";
 import { fetchBalance, getAccount } from "@wagmi/core";
 import ETHbuy from "../MintPop/ETHbuy";
-// import FiatBuy from "../MintPop/FiatBuy";
+import FiatBuy from "../MintPop/FiatBuy";
 
 const presaleAddress = process.env.REACT_APP_PRESALE_ADDRESS;
 const hydromotionAddress = process.env.REACT_APP_HYDROMOTION_ADDRESS;
@@ -81,11 +81,10 @@ function Right() {
   const getTokenInfo__CurrentICOround = async () => {
     await hydromotion?.balanceOf(presaleAddress).then((res) => {
       let resp = res;
-      if (resp <= 1000000000000) setCurrentICOround("5");
-      else if (resp <= 2000000000000) setCurrentICOround("4");
-      else if (resp <= 3000000000000) setCurrentICOround("3");
-      else if (resp <= 4000000000000) setCurrentICOround("2");
-      else if (resp <= 5000000000000) setCurrentICOround("1");
+      if (resp <= 1000000000000) setCurrentICOround("4");
+      else if (resp <= 2000000000000) setCurrentICOround("3");
+      else if (resp <= 3000000000000) setCurrentICOround("2");
+      else if (resp <= 4000000000000) setCurrentICOround("1");
       else setCurrentICOround("No Round Left");
     });
   };
@@ -93,11 +92,10 @@ function Right() {
   const getTokenInfo__CurrentTokenPrice = async () => {
     await hydromotion?.balanceOf(presaleAddress).then((res) => {
       let resp = res;
-      if (resp <= 5000000000000) setCurrentTokenPrice("0.00001");
-      else if (resp <= 4000000000000) setCurrentTokenPrice("0.0001");
-      else if (resp <= 3000000000000) setCurrentTokenPrice("0.001");
-      else if (resp <= 2000000000000) setCurrentTokenPrice("0.01");
-      else if (resp <= 1000000000000) setCurrentTokenPrice("0.1");
+      if (resp <= 1000000000000) setCurrentTokenPrice("10");
+      else if (resp <= 2000000000000) setCurrentTokenPrice("1");
+      else if (resp <= 3000000000000) setCurrentTokenPrice("0.1");
+      else if (resp <= 4000000000000) setCurrentTokenPrice("0.01");
       else setCurrentTokenPrice("Presale Already Ended");
     });
   };
@@ -110,10 +108,10 @@ function Right() {
     ETHpop ? setETHpop(false) : setETHpop(true);
   };
 
-  // const [FiatPop, setFiatPop] = useState(false);
-  // const fiatPopHandel = () => {
-  //   FiatPop ? setFiatPop(false) : setFiatPop(true);
-  // };
+  const [FiatPop, setFiatPop] = useState(false);
+  const fiatPopHandel = () => {
+    FiatPop ? setFiatPop(false) : setFiatPop(true);
+  };
   // --------------------------------------------------------------- //
 
   return (
@@ -188,24 +186,24 @@ function Right() {
           
             </>
         )}
-        {/* <button
+        <button
           onClick={() => fiatPopHandel()}
           className="border-2 border-lime-700 hover:border-lime-800 p-3 px-5 rounded-full text-lime-700 hover:text-lime-800 font-bold"
         >
           Buy Tokens with EUR
-        </button> */}
+        </button>
 
         
       </div>
       {ETHpop ? <ETHbuy cancel={() => ethPopHandel()} /> : null}
-      {/* {FiatPop ? (
+      {FiatPop ? (
         <FiatBuy
           cancel={() => {
             fiatPopHandel();
           }}
           currentPrice={currentTokenPrice}
         />
-      ) : null} */}
+      ) : null}
     </div>
   );
 }

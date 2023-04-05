@@ -126,10 +126,10 @@ function ETHbuy(props) {
 
               <div className="sm:col-span-2 my-5">
                 {tokenAmount == 0 ||
-                (tokenAmount > 9 && tokenAmount < 50000000001) ? (
+                (tokenAmount > 999 && tokenAmount < 50000000001) ? (
                   <input
                     type="number"
-                    min={10}
+                    min={1000}
                     max={50000000000}
                     id="Tokens"
                     onChange={tokenInputHandeler}
@@ -139,7 +139,7 @@ function ETHbuy(props) {
                 ) : (
                   <input
                     type="number"
-                    min={10}
+                    min={1000}
                     max={50000000000}
                     id="Tokens"
                     onChange={tokenInputHandeler}
@@ -151,7 +151,7 @@ function ETHbuy(props) {
 
               <div className="sm:col-span-2 mt-5">
                 <p className="text-sm text-lime-900">
-                  {tokenAmount < 9 ? (
+                  {tokenAmount < 1000 ? (
                     <span>
                       total Price:{" "}
                       <b>
@@ -177,7 +177,7 @@ function ETHbuy(props) {
             </div>
             <hr className="border-1/2 border-lime-700" />
             <div className="px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-              {tokenAmount > 9 && tokenAmount < 50000000001 ? (
+              {tokenAmount > 999 && tokenAmount < 50000000001 ? (
                 <button
                   onClick={buy}
                   type="button"
