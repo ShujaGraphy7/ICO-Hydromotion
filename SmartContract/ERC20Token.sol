@@ -6,12 +6,12 @@ import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract HydromotionCoin is ERC20, ERC20Burnable, Ownable {
-    uint256 initialSupply = 50000000000 * 10**2;
     address presaleAddress;
 
     constructor(address presaleContract) ERC20("HydromotionCoin", "HYM") {
         presaleAddress = presaleContract;
-        _mint(presaleContract, initialSupply);
+        _mint(presaleContract, 40000000000 * 10**2);
+        _mint(msg.sender, 10000000000 * 10**2);
     }
 
     function mint(address to, uint256 amount) public {
@@ -37,7 +37,7 @@ contract HydromotionCoin is ERC20, ERC20Burnable, Ownable {
         return true;
     }
 
-    function setPresaleAddress(address add) public onlyOwner {
+    function setPresaleAddress(address add) external onlyOwner {
         presaleAddress = add;
     }
 
