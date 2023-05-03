@@ -52,7 +52,7 @@ function Navbar() {
         <div className="flex md:order-2">
           <div className="hidden md:block">
             <ConnectButton
-              label="Connect Wallet"
+              label="Wallet verbinden"
               accountStatus={{
                 smallScreen: "avatar",
                 largeScreen: "full",
@@ -76,7 +76,7 @@ function Navbar() {
                 className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-lime-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                 aria-current="page"
               >
-                Home
+                Startseite
               </a>
             </li>
             <li>
@@ -84,7 +84,7 @@ function Navbar() {
                 href="#About"
                 className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-lime-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
               >
-                About
+                Über
               </a>
             </li>
           </ul>
@@ -93,7 +93,7 @@ function Navbar() {
 
       <div className="md:hidden xs:block mr-20 min-w-fit">
         <ConnectButton
-          label="Connect Wallet"
+          label="Wallet verbinden"
           accountStatus={{
             smallScreen: "avatar",
             largeScreen: "full",
@@ -132,7 +132,7 @@ function Navbar() {
                       href="#Home"
                       className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-lime-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                     >
-                      Home
+                      Startseite
                     </a>
                   )}
                 </Menu.Item>
@@ -143,7 +143,7 @@ function Navbar() {
                       href="#About"
                       className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-lime-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                     >
-                      About
+                      Über
                     </a>
                   )}
                 </Menu.Item>

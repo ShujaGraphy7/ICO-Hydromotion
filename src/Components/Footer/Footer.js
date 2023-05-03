@@ -10,7 +10,7 @@ function Footer() {
             <a href="#Home" className="hover:underline">
               Greenhydromotion
             </a>
-            . All Rights Reserved.
+            . Alle Rechte vorbehalten.
           </span>
           <div className="flex space-x-3 s
           m:justify-center sm:mt-0">

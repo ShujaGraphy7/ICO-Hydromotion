@@ -22,9 +22,9 @@ function ETHbuy(props) {
     setTokenAmount(e.target.value);
   };
 
-  const accountAddressHandeler = (e) => {
-    setAccountAddress(e.target.value);
-  };
+  // const accountAddressHandeler = (e) => {
+  //   setAccountAddress(e.target.value);
+  // };
 
   // mint Handeling Functions
 
@@ -95,34 +95,15 @@ function ETHbuy(props) {
                     className="text-base font-semibold leading-6 text-gray-900"
                     id="modal-title"
                   >
-                    Buy Tokens with ETH
+                    Token mit ETH kaufen
                   </h3>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500">
-                      Are you sure you want to buy your account?
+                    Sind Sie sicher, dass Sie mit Ihrem Konto kaufen möchten?
                     </p>
                   </div>
                 </div>
               </div>
-
-              {/* <div className="sm:col-span-2 my-5">
-                {AccountAddress.length == 42 ?(
-                
-                  <input
-                    type="text"
-                    onChange={accountAddressHandeler}
-                    className="bg-[#ffffffdc] border placeholder-lime-600 border-lime-800 text-lime-900 text-sm rounded-lg focus:ring-lime-600 focus:border-lime-600 block w-full p-2.5"
-                    placeholder="Enter Account Address"
-                  />
-                ) : (
-                  <input
-                    type="text"
-                    onChange={accountAddressHandeler}
-                    className="bg-[#ffffffdc] border placeholder-red-600 border-red-800 text-red-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5"
-                    placeholder="Enter Account Address"
-                  />
-                )}
-              </div> */}
 
               <div className="sm:col-span-2 my-5">
                 {tokenAmount == 0 ||
@@ -134,7 +115,7 @@ function ETHbuy(props) {
                     id="Tokens"
                     onChange={tokenInputHandeler}
                     className="bg-[#ffffffdc] border placeholder-lime-600 border-lime-800 text-lime-900 text-sm rounded-lg focus:ring-lime-600 focus:border-lime-600 block w-full p-2.5"
-                    placeholder="Enter Token Amount"
+                    placeholder="Token-Betrag eingeben"
                   />
                 ) : (
                   <input
@@ -144,7 +125,7 @@ function ETHbuy(props) {
                     id="Tokens"
                     onChange={tokenInputHandeler}
                     className="bg-[#ffffffdc] border placeholder-red-600 border-red-800 text-red-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5"
-                    placeholder="Enter Token Amount"
+                    placeholder="Token-Betrag eingeben"
                   />
                 )}
               </div>
@@ -153,7 +134,7 @@ function ETHbuy(props) {
                 <p className="text-sm text-lime-900">
                   {tokenAmount < 1000 ? (
                     <span>
-                      total Price:{" "}
+                      Gesamtpreis
                       <b>
                         {(
                           ethers.utils.formatEther(currentPriceOf1.toString()) *
@@ -164,7 +145,7 @@ function ETHbuy(props) {
                     </span>
                   ) : (
                     <span>
-                      total Price:{" "}
+                      Gesamtpreis
                       <b>
                         {ethers.utils.formatEther(currentPriceOf1.toString()) *
                           tokenAmount}{" "}
@@ -183,7 +164,7 @@ function ETHbuy(props) {
                   type="button"
                   className="inline-flex w-full justify-center rounded-md bg-lime-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-lime-500 sm:ml-3 sm:w-auto"
                 >
-                  Buy
+                  Kaufen
                 </button>
               ) : (
                 <button
@@ -191,7 +172,7 @@ function ETHbuy(props) {
                   type="button"
                   className="inline-flex w-full justify-center rounded-md bg-[#64a30d62] px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-lime-500 sm:ml-3 sm:w-auto"
                 >
-                  Buy
+                  Kaufen
                 </button>
               )}
 
@@ -200,7 +181,7 @@ function ETHbuy(props) {
                 onClick={props.cancel}
                 className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
               >
-                Cancel
+                Abbrechen
               </button>
             </div>
           </div>

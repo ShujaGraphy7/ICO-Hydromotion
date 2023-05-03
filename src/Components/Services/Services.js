@@ -13,33 +13,33 @@ function Services() {
             <span className="text-black">HYDROMOTION</span>COIN
           </p>
           <div className="mx-40 my-10">
-            <hr className="border-2 border-sky-500 "/>
+            <hr className="border-2 border-sky-500 " />
           </div>
         </div>
         <div className="text-sky-500 text-6xl my-10 grid gap-16 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mx-[10%]">
           <div className="mx-auto">
             <BsFillBuildingFill className="mx-auto my-5" />
             <div className="font-medium text-lg text-center">
-            Where groups are active, you are too.
+              Wo Gruppen aktiv sind, sind auch Sie aktiv.{" "}
             </div>
           </div>
           <div className="mx-auto">
             <FaCoins className="mx-auto  my-5" />
 
             <div className="font-medium text-lg text-center">
-            Your investment affects the project directly.
+              Ihre Investition wirkt sich direkt auf das Projekt aus.{" "}
             </div>
           </div>
           <div className="mx-auto">
             <HiUserGroup className="mx-auto my-5" />
             <div className="font-medium text-lg text-center">
-            You are a part of the project.
+              Sie sind ein Teil des Projekts.{" "}
             </div>
           </div>
           <div className="mx-auto">
             <RiLeafFill className="mx-auto  my-5" />
             <div className="font-medium text-lg text-center">
-            You secure a green future.
+              Sie sichern eine grüne Zukunft.{" "}
             </div>
           </div>
         </div>

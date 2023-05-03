@@ -163,18 +163,18 @@ function FiatBuy(props) {
                     className="text-base font-semibold leading-6 text-gray-900"
                     id="modal-title"
                   >
-                    Buy Tokens with EUR
+                    Token kaufen mit EUR
                   </h3>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500">
-                      Are you sure you want to buy your account?
+                    Sind Sie sicher, dass Sie mit Ihrem Konto kaufen möchten?
                     </p>
                   </div>
                 </div>
               </div>
               <div className="mt-2">
                 <p className="text-sm text-gray-500">
-                  Current Price of 1: <b>{currentPriceOf1}</b>
+                Aktueller Prive von 1: <b>{currentPriceOf1}</b>
                 </p>
               </div>
               <div className="sm:col-span-2 my-5">
@@ -183,14 +183,14 @@ function FiatBuy(props) {
                     type="text"
                     onChange={accountAddressHandeler}
                     className="bg-[#ffffffdc] border placeholder-lime-600 border-lime-800 text-lime-900 text-sm rounded-lg focus:ring-lime-600 focus:border-lime-600 block w-full p-2.5"
-                    placeholder="Enter Account Address"
+                    placeholder="Empfangene Wallet-Adresse eingeben"
                   />
                 ) : (
                   <input
                     type="text"
                     onChange={accountAddressHandeler}
                     className="bg-[#ffffffdc] border placeholder-red-600 border-red-800 text-red-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5"
-                    placeholder="Enter Receiving Wallet Address"
+                    placeholder="Empfangene Wallet-Adresse eingeben"
                   />
                 )}
               </div>
@@ -204,7 +204,7 @@ function FiatBuy(props) {
                     id="Tokens"
                     onChange={tokenInputHandeler}
                     className="bg-[#ffffffdc] border placeholder-lime-600 border-lime-800 text-lime-900 text-sm rounded-lg focus:ring-lime-600 focus:border-lime-600 block w-full p-2.5"
-                    placeholder="Enter Token Amount (min 1000)"
+                    placeholder="Token-Betrag eingeben (min 1000)"
                   />
                 ) : (
                   <input
@@ -214,14 +214,14 @@ function FiatBuy(props) {
                     id="Tokens"
                     onChange={tokenInputHandeler}
                     className="bg-[#ffffffdc] border placeholder-red-600 border-red-800 text-red-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5"
-                    placeholder="Enter Token Amount (min 1000)"
+                    placeholder="Token-Betrag eingeben (min 1000)"
                   />
                 )}
               </div>
 
               <div className="sm:col-span-2 mt-5">
                 <p className="text-sm text-lime-900">
-                  total Price: <b>{parseFloat(totalPrice).toFixed(2)} EUR</b>
+                Gesamtpreis: <b>{parseFloat(totalPrice).toFixed(2)} EUR</b>
                 </p>
               </div>
             </div>
@@ -241,7 +241,7 @@ function FiatBuy(props) {
                   <ButtonWrapper currency={currency} showSpinner={false} />
                 </PayPalScriptProvider>
               </div>
-                : <p className="text-xs">Enter Proper inputs to Proceed to payment</p>}
+                : <p className="text-xs">Geben Sie die korrekten Eingaben ein, um mit der Zahlung fortzufahren</p>}
               
             </div>
           </div>

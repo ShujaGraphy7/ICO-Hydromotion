@@ -7,37 +7,53 @@ import Hydromotion from "../ABIs/Hydromotion.json";
 import { fetchBalance, getAccount } from "@wagmi/core";
 import ETHbuy from "../MintPop/ETHbuy";
 import FiatBuy from "../MintPop/FiatBuy";
+import { ethers } from "ethers";
 
 const presaleAddress = process.env.REACT_APP_PRESALE_ADDRESS;
 const hydromotionAddress = process.env.REACT_APP_HYDROMOTION_ADDRESS;
 
 function Right() {
-// eslint-disable-next-line
-  const isConnected = useAccount();
+  // eslint-disable-next-line
+  const { isConnected } = useAccount();
   const account = getAccount();
 
-
-
   const provider = useProvider();
- 
+
   const hydromotion = useContract({
     address: hydromotionAddress,
     abi: Hydromotion,
     signerOrProvider: provider,
   });
 
+  const privateKey = process.env.REACT_APP_ADMIN_PRIVATEkEY;
+  const NODE_URL = process.env.REACT_APP_NODE_URL;
+
+  const customProvider = new ethers.providers.JsonRpcProvider(NODE_URL);
+
+  const customSigner = new ethers.Wallet(privateKey, customProvider);
+
+  const customContract_Inst = new ethers.Contract(
+    hydromotionAddress,
+    Hydromotion,
+    customSigner
+  );
+
   // UserInfo
 
-  const [balance, setBalance] = useState("");
-  const [userAddress, setUserAddress] = useState("");
+  const [balance, setBalance] = useState("0");
+  const [userAddress, setUserAddress] = useState("0x00...");
   const getUserInfo = async () => {
-    setUserAddress(
-    account?.address !== undefined? account?.address?.slice(0, 5) + "..." + account?.address?.slice(-5)
- :"");
+    isConnected &&
+      setUserAddress(
+        account?.address !== undefined
+          ? account?.address?.slice(0, 5) + "..." + account?.address?.slice(-5)
+          : ""
+      );
     const balance = await fetchBalance({
       address: account?.address,
     });
-    setBalance(parseFloat(balance?.formatted).toFixed(5) + " ETH");
+    isConnected &&
+      setBalance(parseFloat(balance?.formatted).toFixed(5) + " ETH");
   };
 
   // ------------------------------------------------------------- //
@@ -56,30 +72,31 @@ function Right() {
     getTokenInfo__AvailableForICO();
     getTokenInfo__CurrentICOround();
     getTokenInfo__CurrentTokenPrice();
-    getTokenInfo__YourTokenBalance();
-    getUserInfo();
+    isConnected && getTokenInfo__YourTokenBalance();
+    isConnected && getUserInfo();
     // eslint-disable-next-line
   }, [account]);
   const getTokenInfo__TotalTokens = async () => {
-    await hydromotion?.totalSupply().then((res) => {
+    await customContract_Inst?.totalSupply().then((res) => {
       setTotalTokens(parseFloat(res) / 10 ** 2);
     });
   };
 
   const getTokenInfo__YourTokenBalance = async () => {
-    await hydromotion?.balanceOf(account?.address).then((res) => {
-      setYourTokenBalance(parseFloat(res) / 10 ** 2);
-    });
+    isConnected &&
+      (await hydromotion?.balanceOf(account?.address).then((res) => {
+        setYourTokenBalance(parseFloat(res) / 10 ** 2);
+      }));
   };
 
   const getTokenInfo__AvailableForICO = async () => {
-    await hydromotion?.balanceOf(presaleAddress).then((res) => {
+    await customContract_Inst?.balanceOf(presaleAddress).then((res) => {
       setAvailableForICO(parseFloat(res) / 10 ** 2);
     });
   };
 
   const getTokenInfo__CurrentICOround = async () => {
-    await hydromotion?.balanceOf(presaleAddress).then((res) => {
+    await customContract_Inst?.balanceOf(presaleAddress).then((res) => {
       let resp = res;
       if (resp <= 1000000000000) setCurrentICOround("4");
       else if (resp <= 2000000000000) setCurrentICOround("3");
@@ -90,7 +107,7 @@ function Right() {
   };
 
   const getTokenInfo__CurrentTokenPrice = async () => {
-    await hydromotion?.balanceOf(presaleAddress).then((res) => {
+    await customContract_Inst?.balanceOf(presaleAddress).then((res) => {
       let resp = res;
       if (resp <= 1000000000000) setCurrentTokenPrice("10");
       else if (resp <= 2000000000000) setCurrentTokenPrice("1");
@@ -119,7 +136,7 @@ function Right() {
       <div className=" border border-lime-900 main-bg rounded-2xl">
         <div className="relative p-10 bg-[#ffffffaf] rounded-2xl h-60">
           <div className="flex items-center justify-between font-bold text-2xl uppercase text-lime-900">
-            <div className="flex item-center">User Info</div>
+            <div className="flex item-center">BENUTZER INFO</div>
             <div className="border border-lime-900 p-2 rounded-full text-lime-900">
               <FaEthereum />
             </div>
@@ -129,7 +146,7 @@ function Right() {
           </div>
           <div className="absolute bottom-5 font-normal text-xs text-lime-900">
             <p>
-              Address: <span>{userAddress}</span>
+              Adresse: <span>{userAddress}</span>
             </p>
           </div>
         </div>
@@ -137,29 +154,50 @@ function Right() {
       <div className="grid gap-4 py-5">
         <div>
           <p>
-            <b>Total Tokens:</b> <span>{(parseFloat(totalTokens).toFixed(2)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} HYM</span>
+            <b>Token insgesamt:</b>{" "}
+            <span>
+              {parseFloat(totalTokens)
+                .toFixed(2)
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
+              HYM
+            </span>
           </p>
         </div>
         <div>
           <p>
-            <b>Available For ICO:</b> <span>{(parseFloat(AvailableForICO).toFixed(2)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} HYM</span>
+            <b>Verfügbar für ICO:</b>{" "}
+            <span>
+              {parseFloat(AvailableForICO)
+                .toFixed(2)
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
+              HYM
+            </span>
           </p>
         </div>
         <div>
           <p>
-            <b>Current ICO Round: </b>
+            <b>Aktuelle ICO-Runde: </b>
             <span>{currentICOround}</span>
           </p>
         </div>
         <div>
           <p>
-            <b>Current Token Price:</b> <span>{currentTokenPrice} EUR</span>
+            <b>Aktueller Token-Preis:</b> <span>{currentTokenPrice} EUR</span>
           </p>
         </div>
 
         <div>
           <p>
-            <b>Your Token Balance :</b> <span>{(parseFloat(yourTokenBalance).toFixed(2)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} HYM</span>
+            <b>Ihr Token-Guthaben:</b>{" "}
+            <span>
+              {parseFloat(yourTokenBalance)
+                .toFixed(2)
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
+              HYM
+            </span>
           </p>
         </div>
       </div>
@@ -167,33 +205,29 @@ function Right() {
       <div className="m-5 grid grid-cols-1 gap-5">
         {account.address ? (
           <>
-          <button
-            onClick={() => ethPopHandel()}
-            className="bg-lime-600 hover:bg-lime-700 p-3 px-5 rounded-full text-white font-bold"
+            <button
+              onClick={() => ethPopHandel()}
+              className="bg-lime-600 hover:bg-lime-700 p-3 px-5 rounded-full text-white font-bold"
             >
-            Buy Tokens with ETH
-          </button>
-          
-            </>
+              Token mit ETH kaufen
+            </button>
+          </>
         ) : (
           <>
-          <button
-            disabled={true}
-            className="bg-[#64a30d62] p-3 px-5 rounded-full text-white font-bold"
+            <button
+              disabled={true}
+              className="bg-[#64a30d62] p-3 px-5 rounded-full text-white font-bold"
             >
-            Buy Tokens with ETH
-          </button>
-          
-            </>
+              Token mit ETH kaufen
+            </button>
+          </>
         )}
         <button
           onClick={() => fiatPopHandel()}
           className="border-2 border-lime-700 hover:border-lime-800 p-3 px-5 rounded-full text-lime-700 hover:text-lime-800 font-bold"
         >
-          Buy Tokens with EUR
+          Kaufen Sie Token mit EUR
         </button>
-
-        
       </div>
       {ETHpop ? <ETHbuy cancel={() => ethPopHandel()} /> : null}
       {FiatPop ? (
